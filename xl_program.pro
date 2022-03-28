@@ -21,19 +21,22 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     math/math.cpp \
-    process_control.cpp \
-    tool/tool.cpp
+    hci/hex_convert.cpp \
+    tool/tool.cpp \
+    process_control.cpp
 
 HEADERS += \
     LeetCode/leetcode_001-020.h \
     LeetCode/leetcode_test.h \
     mainwindow.h \
     math/math.h \
-    process_control.h \
-    tool/tool.h
+    hci/hex_convert.h \
+    tool/tool.h \
+    process_control.h
 
 FORMS += \
-    mainwindow.ui
+    hci/hex_convert.ui \
+    mainwindow.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
