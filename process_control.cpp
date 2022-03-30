@@ -16,9 +16,7 @@ void ProcessControl::Init() {
 }
 
 void ProcessControl::RunLoop() {
-//    LeetCodeTest::Test001();
-    LeetCodeTest::Test012();
-//    LeetCodeTest::Test013();
+//    LeetCodeTest::Test();
 
 
     QString qstr = "12";

@@ -4,6 +4,13 @@
 #include <vector>
 
 #include <iostream>
+
+void LeetCodeTest::Test() {
+//    Test001();
+//    Test012();
+    Test013();
+}
+
 namespace {
 const int space = 8;
 }

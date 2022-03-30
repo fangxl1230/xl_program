@@ -1,21 +1,24 @@
-#ifndef HEX_CONVERT_H
-#define HEX_CONVERT_H
-
+#ifndef HCI_HEX_CONVERT_H
+#define HCI_HEX_CONVERT_H
 #include <QWidget>
-
+namespace hci {
 namespace Ui {
 class HexConvert;
 }
-
 class HexConvert : public QWidget {
     Q_OBJECT
-
 public:
     explicit HexConvert(QWidget *parent = nullptr);
     ~HexConvert();
+
+private slots:
+    void on_hex_convert_button_clicked();
+
+    void on_cancel_button_clicked();
 
 private:
     Ui::HexConvert *ui;
 };
 
-#endif // HEX_CONVERT_H
+} // namespace hci
+#endif // HCI_HEX_CONVERT_H
