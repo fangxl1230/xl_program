@@ -17,7 +17,7 @@ void ProcessControl::Init() {
 
 void ProcessControl::RunLoop() {
 //    LeetCodeTest::Test();
-
+    LeetCodeTest::Test2();
 
     QString qstr = "12";
     std::string s = qstr.toStdString();

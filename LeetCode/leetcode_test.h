@@ -7,6 +7,7 @@ public:
     LeetCodeTest() = delete;
 
     static void Test();
+    static void Test2();
 
     static void Test001();
     static void Test012();
