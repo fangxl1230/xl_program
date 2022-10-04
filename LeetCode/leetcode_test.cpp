@@ -33,64 +33,60 @@ void LeetCodeTest::Test() {
 }
 
 
-//字符串转十六进制
-void StrToHex(char* pbDest, char* pbSrc, int nLen) {
-    char h1, h2;
-    char s1, s2;
+////字符串转十六进制
+//void StrToHex(char* pbDest, char* pbSrc, int nLen) {
+//    char h1, h2;
+//    char s1, s2;
 
-//    for (int i = 0; i < nLen; i++) {
+//    for(int i=0; i < nLen / 2; i++) {
+//        h1 = pbSrc[2 * i];
+//        h2 = pbSrc[2 * i + 1];
 
+//        char x = toupper(h1);
+//        s1 = toupper(h1) - 0x30; //toupper 转换为大写字母
+//        if (s1 > 9) {
+//            s1 -= 7;
+//        }
+//        char y = toupper(h2);
+//        s2 = toupper(h2) - 0x30;
+//        if (s2 > 9) {
+//            s2 -= 7;
+//        }
+//        char z = s1 * 16 + s2;
+//        pbDest[i] = s1 * 16 + s2;
 //    }
+//}
 
-    for(int i=0; i < nLen / 2; i++) {
-        h1 = pbSrc[2 * i];
-        h2 = pbSrc[2 * i + 1];
+////十六进制转字符串
+//void HexToStr(char *pszDest, char *pbSrc, int nLen) {
+//    char ddl, ddh;
+//    for(int i = 0; i < nLen; i++) {
+//        ddh = 48 + pbSrc[i] / 16;
+//        ddl = 48 + pbSrc[i] % 16;
 
-        char x = toupper(h1);
-        s1 = toupper(h1) - 0x30; //toupper 转换为大写字母
-        if (s1 > 9) {
-            s1 -= 7;
-        }
-        char y = toupper(h2);
-        s2 = toupper(h2) - 0x30;
-        if (s2 > 9) {
-            s2 -= 7;
-        }
-        char z = s1 * 16 + s2;
-        pbDest[i] = s1 * 16 + s2;
-    }
-}
-
-//十六进制转字符串
-void HexToStr(char *pszDest, char *pbSrc, int nLen) {
-    char ddl, ddh;
-    for(int i = 0; i < nLen; i++) {
-        ddh = 48 + pbSrc[i] / 16;
-        ddl = 48 + pbSrc[i] % 16;
-
-        if (ddh > 57) {
-            ddh = ddh + 7;
-        }
-        if (ddl > 57) {
-            ddl = ddl + 7;
-        }
-        pszDest[i * 2] = ddh;
-        pszDest[i * 2 + 1] = ddl;
-    }
-    pszDest[nLen * 2] = '\0';
-}
+//        if (ddh > 57) {
+//            ddh = ddh + 7;
+//        }
+//        if (ddl > 57) {
+//            ddl = ddl + 7;
+//        }
+//        pszDest[i * 2] = ddh;
+//        pszDest[i * 2 + 1] = ddl;
+//    }
+//    pszDest[nLen * 2] = '\0';
+//}
 
 void LeetCodeTest::Test2() {
     //字符串转十六进制
-    char *dest = new char[4];
-    char *src = "ccaa";
-    StrToHex(dest, src, 4);
+//    char *dest = new char[4];
+//    char *src = "ccaa";
+//    StrToHex(dest, src, 4);
 
-    std::cout << dest[0] << dest[1] << std::endl;
+//    std::cout << dest[0] << dest[1] << std::endl;
 
-    char sr = 0xA2;
-    HexToStr(src, dest, 4);
-    int a = 0;
+//    char sr = 0xA2;
+//    HexToStr(src, dest, 4);
+//    int a = 0;
 //    std::string hex_str = "0xc1";
 //    int i；        intx
 //    int v;

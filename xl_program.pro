@@ -21,8 +21,11 @@ SOURCES += \
     LeetCode/leetcode_test.cpp \
     main.cpp \
     mainwindow.cpp \
-    math/math.cpp \
     hci/hex_convert.cpp \
+    math/mathematical.cpp \
+    math/matrix.cpp \
+    math/test.cpp \
+    tool/system_cmd.cpp \
     tool/tool.cpp \
     process_control.cpp
 
@@ -30,8 +33,12 @@ HEADERS += \
     LeetCode/leetcode_001-020.h \
     LeetCode/leetcode_test.h \
     mainwindow.h \
-    math/math.h \
     hci/hex_convert.h \
+    math/mathematical.h \
+    math/matrix.h \
+    math/test.h \
+    math/vector3.h \
+    tool/system_cmd.h \
     tool/tool.h \
     process_control.h
 
