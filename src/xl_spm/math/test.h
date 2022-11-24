@@ -4,6 +4,49 @@
 #include <iostream>
 #include <fstream>
 
+struct PID {
+    PID (double value) {
+
+        double P = pid[0], I= pid[1], D = pid[2];
+
+        //位置式PID
+        error  = taret_value - value;
+        P_OUT  = P * error;
+        I_OUT += I * error;
+        D_OUT  = D * (last_error - error);
+
+        OUT = P_OUT + I_OUT + D_OUT;
+        last_error = error;
+
+        //增量式PID
+        error  = taret_value - value;
+        P_OUT  = P * (error - last_error);
+        I_OUT += I * error;
+        D_OUT  = D * (error - 2 * last_error + last_error2);
+
+        OUT = P_OUT + I_OUT + D_OUT + last_OUT;
+        last_error = error;
+
+    }
+    double pid[3];
+    double taret_value;//目标值
+
+    double OUT;        //总输出
+
+    double P_OUT;      //P输出
+    double I_OUT;      //I输出
+    double D_OUT;      //D输出
+    double error;      //本次误差
+    double last_error; //上次误差
+    double last_error2;//上上次误差
+    double last_OUT;   //上次总输出
+};
+
+
+
+
+
+
 class test
 {
 public:

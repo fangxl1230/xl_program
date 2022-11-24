@@ -1,7 +1,7 @@
 #include "process_control.h"
 #include "LeetCode/leetcode_test.h"
-#include "math/mathematical.h"
-#include "math/vector3.h"
+#include "xl_spm/math/mathematical.h"
+#include "xl_spm/math/vector3.h"
 #include <QString>
 #include <iostream>
 
@@ -19,6 +19,18 @@ void ProcessControl::Init() {
 }
 
 void ProcessControl::RunLoop() {
+
+    std::cout << "char " << sizeof (char) << std::endl;
+    std::cout << "float " << sizeof (float) << std::endl;
+    std::cout << "long " << sizeof (long) << std::endl;
+    std::cout << "int " << sizeof (int) << std::endl;
+    std::cout << "unsigned int " << sizeof (unsigned int) << std::endl;
+    std::cout << "short int " << sizeof (short int) << std::endl;
+    std::cout << "long int " << sizeof (long int) << std::endl;
+    std::cout << "double " << sizeof (double) << std::endl;
+    std::cout << "long double" << sizeof (long double) << std::endl;
+    std::cout << "long long " << sizeof (long long) << std::endl;
+
     std::vector<double> xdata = {0.5,1.0,1.5,2.0,2.5,3.0};
     std::vector<double> ydata = {1.75,2.45,3.81,4.80,7.00,8.60};
     std::vector<double> coefficient;

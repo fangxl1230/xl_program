@@ -21,13 +21,18 @@ public:
 private slots:
     void RunLoop();
 
+    //日常练习
+    void on_leetcode_button_clicked();
+    void on_tcp_pushButton_clicked();
+
+    //工具
     void on_hex_convert_button_clicked();
 
 private:
     Ui::MainWindow *ui;
     QTimer* m_update_systime_thread;
 
-    hci::HexConvert* hex_convert;
+
 
     ProcessControl* m_process_control;
 

@@ -1,5 +1,5 @@
 #include "leetcode_test.h"
-#include "tool/tool.h"
+#include "xl_tool/tool.h"
 #include "leetcode_001-020.h"
 #include <vector>
 #include <math.h>

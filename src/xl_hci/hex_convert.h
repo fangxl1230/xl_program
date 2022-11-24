@@ -1,8 +1,7 @@
 #ifndef HCI_HEX_CONVERT_H
 #define HCI_HEX_CONVERT_H
 #include <QWidget>
-#include <QMouseEvent>
-#include <QTextEdit>
+
 namespace hci {
 namespace Ui {
 class HexConvert;

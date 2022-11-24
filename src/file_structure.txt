@@ -1,0 +1,36 @@
+src文件夹----source的简写，用于存放源代码。
+	src_1-进程部分
+                xl_hci----Human Computer Interaction的简写，人机交互部分，主要关于界面。
+                xl_spm----System processing Module的简写,有关计算部分。
+	src_2-库或者其他代码文件部分
+		lib/dep文件夹----library/dependence的简写，用于存放引入的第三方库（jquery）。
+		test----单元测试文件,存放一些单元测试文件。
+
+user
+	docs文件夹----document的简写，用于存放一些需求文档，开发文档。
+	logs----用于存放一些日志文件。
+	temp----temporary的简写，用于存放一些临时文件（缓存文件）。
+	asset文件夹----用于存放一些资源（图片、音乐）。
+	conf文件夹----config的简写，用于存放一些配置文件（xml、json）。
+
+
+
+bin文件夹----binary的简写，用于存放二进制文件。
+
+dist/build文件夹----distribution/build的简写，用于存放最终发布的代码（或者软件）。
+
+examples/demo文件夹----用于存放一些实例。
+
+static文件夹----用于存放一些静态资源（html、js、css、图片、音乐）。
+
+common/public文件夹----用于存放一些公共资源（公共图片，公共音乐，公共）。
+
+tpl文件夹----template的简写，用于存放一些模板文件（jade、ftl）。
+
+util/tools----用于存放一些工具（工具类库）。
+
+test/__test__----用于存放一些单元测试文件。
+
+client----用于存放前端源代码（web前端、android客户端、ios客户端）。
+
+server----用于存放后端端源代码（java、asp.net、php、python）。
