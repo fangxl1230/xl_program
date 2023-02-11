@@ -1,15 +1,40 @@
 #include "matrix.h"
+#include "xl_tool/str_tool.h"
+#ifdef DEBUG_TEST
 #include <iostream>
+#endif
 namespace xl_math {
-
-Matrix::Matrix(unsigned int row, unsigned int column) : m_row(row), m_column(column){
+Matrix::Matrix(unsigned int row, unsigned int column): m_row(row), m_column(column){
     m_matrix.resize(m_row);
     for (unsigned int i = 0; i < m_row; i++) {
         m_matrix[i].resize(m_column);
     }
-    //æ£€æŸ¥çŸ©é˜µæ˜¯å¦æ˜¯æ–¹é˜µ
+    //¼ì²é¾ØÕóÊÇ·ñÊÇ·½Õó
     is_square = m_row == m_column ? true : false;
 }
+namespace {
+std::string sep  = ";";
+std::string sep2 = ",";
+std::string sep_start = "[";
+std::string sep_end   = "]";
+}
+Matrix::Matrix(const std::string& mat) {
+    if (mat.empty() || std::string(1, mat[0]) != sep_start || &mat.back() != sep_end) {
+        std::cout << mat << std::endl;
+        return;
+    }
+    std::vector<std::string> str_list = xl_tool::StrTool::SplitString(mat.substr(1, mat.size()-2), sep);
+    for (const std::string& str : str_list) {
+        std::vector<std::string> list = xl_tool::StrTool::SplitString(str, sep2);
+        std::vector<double> list_double = {};
+        for (const std::string& s : list) {
+            list_double.push_back(std::atof(s.data()));
+        }
+        m_matrix.push_back(list_double);
+    }
+    Update();
+}
+
 //Matrix::Matrix (const Matrix& source) {
 //    m_row = source.m_row;
 //    m_column = source.m_column;
@@ -21,14 +46,14 @@ Matrix::Matrix(unsigned int row, unsigned int column) : m_row(row), m_column(col
 //    }
 //}
 
-//çŸ©é˜µçš„è¡Œå…ƒç´ åˆ—è¡¨,ä»1å¼€å§‹æ•°
+//¾ØÕóµÄĞĞÔªËØÁĞ±í,´Ó1¿ªÊ¼Êı
 std::vector<double> Matrix::GetRowVector(const unsigned int row) {
     if (row > m_row || row < 1) {
         return {};
     }
     return m_matrix[row - 1];
 }
-//çŸ©é˜µçš„åˆ—å…ƒç´ åˆ—è¡¨
+//¾ØÕóµÄÁĞÔªËØÁĞ±í
 std::vector<double> Matrix::GetColumnVector(const unsigned int column) {
     if (column > m_column || column < 1) {
         return {};
@@ -46,7 +71,7 @@ std::vector<double> Matrix::GetColumnVector(const unsigned int column) {
 }
 bool Matrix::SetRowVector(const unsigned int row, const std::vector<double>& row_vector) {
     if (row > m_row || row < 1 || row_vector.size() != m_column) {
-        throw "è¯·æ£€æŸ¥å‘é‡ï¼Œè®¾ç½®å¤±è´¥ï¼ï¼ï¼";
+        throw "Çë¼ì²éÏòÁ¿£¬ÉèÖÃÊ§°Ü£¡£¡£¡";
         return false;
     }
     m_matrix[row-1] = row_vector;
@@ -54,7 +79,7 @@ bool Matrix::SetRowVector(const unsigned int row, const std::vector<double>& row
 }
 bool Matrix::SetColumnVector(const unsigned int column, const std::vector<double>& column_vector) {
     if (column > m_column || column < 1 || column_vector.size() != m_row) {
-        throw "è¯·æ£€æŸ¥å‘é‡ï¼Œè®¾ç½®å¤±è´¥ï¼ï¼ï¼";
+        throw "Çë¼ì²éÏòÁ¿£¬ÉèÖÃÊ§°Ü£¡£¡£¡";
         return false;
     }
     unsigned int count = 0;
@@ -68,7 +93,7 @@ bool Matrix::SetColumnVector(const unsigned int column, const std::vector<double
     return true;
 }
 
-//è½¬ç½®
+//×ªÖÃ
 Matrix Matrix::Transpose() {
     Matrix mat(m_column, m_row);
     for (unsigned int i = 0; i < m_row; i++) {
@@ -79,7 +104,7 @@ Matrix Matrix::Transpose() {
     return mat;
 }
 
-//ä½™å­å¼ ä»0å¼€å§‹æ•°
+//Óà×ÓÊ½ ´Ó0¿ªÊ¼Êı
 Matrix Matrix::Cofactor(const unsigned int r, const unsigned int c) {
     Matrix cofactor = Matrix(m_row - 1, m_column - 1);
     unsigned int m = 0, n = 0;
@@ -98,13 +123,13 @@ Matrix Matrix::Cofactor(const unsigned int r, const unsigned int c) {
     return cofactor;
 }
 
-//ä»£æ•°ä½™å­å¼ ä»1å¼€å§‹æ•°
+//´úÊıÓà×ÓÊ½ ´Ó1¿ªÊ¼Êı
 double Matrix::AlgebraicCofactor(const unsigned int r, const unsigned int c) {
     double k = ((r + c) % 2) ? (-1.0) : (1.0);
     return (Cofactor(r, c).Value() * k);
 }
 
-//ä¼´éšçŸ©é˜µ
+//°éËæ¾ØÕó
 Matrix Matrix::Adjoint() {
     Matrix adjoint = Matrix(m_row, m_column);
     for (unsigned int i = 0; i < m_row; i++) {
@@ -115,14 +140,14 @@ Matrix Matrix::Adjoint() {
     return adjoint.Transpose();
 }
 
-//æ–¹é˜µçš„é€†çŸ©é˜µ
+//·½ÕóµÄÄæ¾ØÕó
 Matrix Matrix::Inverse() {
     if (!is_square) {
-        throw "çŸ©é˜µä¸æ˜¯æ–¹é˜µï¼Œæ— é€†çŸ©é˜µï¼ï¼ï¼";
+        throw "¾ØÕó²»ÊÇ·½Õó£¬ÎŞÄæ¾ØÕó£¡£¡£¡";
         return {};
     }
     if (m_row > 3 || m_column > 3) {
-        throw "å¤§äº3é˜¶é€†çŸ©é˜µæš‚æœªå®ç°ï¼ï¼ï¼";
+        throw "´óÓÚ3½×Äæ¾ØÕóÔİÎ´ÊµÏÖ£¡£¡£¡";
         return {};
     }
     Matrix A_adjoint = Adjoint();
@@ -130,10 +155,10 @@ Matrix Matrix::Inverse() {
     return A_adjoint;
 }
 
-//æ–¹é˜µè¡Œåˆ—å¼çš„å€¼
+//·½ÕóĞĞÁĞÊ½µÄÖµ
 double Matrix::Value() {
     if (!is_square) {
-        throw "çŸ©é˜µä¸æ˜¯æ–¹é˜µï¼Œä¸èƒ½è®¡ç®—è¡Œåˆ—å¼çš„å€¼ï¼ï¼ï¼";
+        throw "¾ØÕó²»ÊÇ·½Õó£¬²»ÄÜ¼ÆËãĞĞÁĞÊ½µÄÖµ£¡£¡£¡";
     }
     if (m_row == 1) {
         return m_matrix[0][0];
@@ -150,7 +175,7 @@ double Matrix::Value() {
                 m_matrix[0][2] * m_matrix[1][1] * m_matrix[2][0]);
     }
     else {
-        throw "æš‚ä¸æ”¯æŒï¼ï¼ï¼";
+        throw "Ôİ²»Ö§³Ö£¡£¡£¡";
     }
 //    double right = 1, left = 1, m = m_row - 1, n = 0;
 //    for (unsigned int j = 0; j < m_column; j++) {
@@ -160,12 +185,12 @@ double Matrix::Value() {
 //    return (m_row % 2 == 1 ? -1 : 1) * (right - left);
 }
 
-//é‡è½½[],ä»0å¼€å§‹è®¡æ•°
+//ÖØÔØ[],´Ó0¿ªÊ¼¼ÆÊı
 std::vector<double> Matrix::operator[] (unsigned int column) {
     return GetRowVector(column + 1);
 }
 
-//é‡è½½=
+//ÖØÔØ=
 bool Matrix::operator= (const Matrix& mat) {
     unsigned int row_size = mat.m_matrix[0].size(), column_size = mat.m_matrix.size();
     for (unsigned int i = 0; i < row_size; i++) {
@@ -177,10 +202,10 @@ bool Matrix::operator= (const Matrix& mat) {
     return true;
 }
 
-//é‡è½½+
+//ÖØÔØ+
 bool Matrix::operator+ (const Matrix& mat) {
     if (mat.m_row != m_row || mat.m_column != m_column) {
-        throw "çŸ©é˜µä¸ç­‰ä»·ï¼Œä¸èƒ½è¿›è¡ŒåŠ æ³•è¿ç®—ï¼ï¼ï¼";
+        throw "¾ØÕó²»µÈ¼Û£¬²»ÄÜ½øĞĞ¼Ó·¨ÔËËã£¡£¡£¡";
         return false;
     }
     for (unsigned int i = 0; i < m_row; i++) {
@@ -192,7 +217,7 @@ bool Matrix::operator+ (const Matrix& mat) {
 }
 bool Matrix::operator- (const Matrix& mat) {
     if (mat.m_row != m_row || mat.m_column != m_column) {
-        throw "çŸ©é˜µä¸ç­‰ä»·ï¼Œä¸èƒ½è¿›è¡Œå‡æ³•è¿ç®—ï¼ï¼ï¼";
+        throw "¾ØÕó²»µÈ¼Û£¬²»ÄÜ½øĞĞ¼õ·¨ÔËËã£¡£¡£¡";
         return false;
     }
     for (unsigned int i = 0; i < m_row; i++) {
@@ -203,7 +228,7 @@ bool Matrix::operator- (const Matrix& mat) {
     return true;
 }
 
-//é‡è½½* æ•°ä¹˜
+//ÖØÔØ* Êı³Ë
 bool Matrix::operator* (const double k) {
     for (unsigned int i = 0; i < m_row; i++) {
         for (unsigned int j = 0; j < m_column; j++) {
@@ -213,7 +238,7 @@ bool Matrix::operator* (const double k) {
     return true;
 }
 
-//é‡è½½/ æ•°é™¤
+//ÖØÔØ/ Êı³ı
 bool Matrix::operator/ (const double k) {
     if (k == 0) {
         return false;
@@ -225,38 +250,52 @@ bool Matrix::operator/ (const double k) {
     }
     return true;
 }
-//é‡è½½^ ç‚¹ä¹˜
-//æ±‚ä¸¤ä¸ªçŸ©é˜µç›¸ä¹˜ï¼ŒA * Bï¼ˆmatï¼‰
+//ÖØÔØ^ µã³Ë
+//ÇóÁ½¸ö¾ØÕóÏà³Ë£¬A * B£¨mat£©
 Matrix Matrix::operator^ (const Matrix& mat) {
     if (m_column != mat.m_row) {
-        throw "çŸ©é˜µè¡Œåˆ—ä¸å¯¹ç§°ï¼Œä¸èƒ½ç›¸ä¹˜ï¼ï¼ï¼";
+        throw "¾ØÕóĞĞÁĞ²»¶Ô³Æ£¬²»ÄÜÏà³Ë£¡£¡£¡";
         return {};
     }
     Matrix square = Matrix(m_row, mat.m_column);
     for (unsigned int i = 0; i < square.m_row; i++) {
         for (unsigned int j = 0; j < square.m_column; j++) {
             for (unsigned int m = 0; m < mat.m_row; m++) {
-                //å–çŸ©é˜µAï¼Œè¡Œæ•°ç»„     m_matrix[i][x]
-                //å–çŸ©é˜µBï¼Œåˆ—æ•°ç»„ mat.m_matrix[x][j]
+                //È¡¾ØÕóA£¬ĞĞÊı×é     m_matrix[i][x]
+                //È¡¾ØÕóB£¬ÁĞÊı×é mat.m_matrix[x][j]
                 square.m_matrix[i][j] += m_matrix[i][m] * mat.m_matrix[m][j];
             }
         }
     }
     return square;
 }
+#ifdef DEBUG_TEST
+//¾ØÕó´òÓ¡¹¤¾ß
+void Matrix::Print(const std::string& name) {
+    std::string space = "";
+    if (!name.empty()) {
+        std::cout << name << " =" << std::endl << std::endl;
+        space = "    ";
+    }
 
-//çŸ©é˜µæ‰“å°å·¥å…·
-void Matrix::Print() {
     unsigned int row = GetRowNumber(), column = GetColumnNumber();
     if (row < 1 || column < 1) {
-        throw ("Matrix çŸ©é˜µä¸æ­£ç¡®ï¼Œè¯·æ£€æŸ¥çŸ©é˜µï¼ï¼ï¼");
+        throw ("Matrix ¾ØÕó²»ÕıÈ·£¬Çë¼ì²é¾ØÕó£¡£¡£¡");
     }
     for (unsigned int i = 0; i < row; i++) {
         for (unsigned int j = 0; j < column; j++) {
-            std::cout << (j == 0 ? "[" : "") << (m_matrix[i][j] >= 0 ? " ": "" )
-                      << m_matrix[i][j] << (j < column - 1 ? "\t" : "]\n");
+            std::cout << space << (m_matrix[i][j] >= 0 ? " " : "") << m_matrix[i][j] << "\t";
         }
+        std::cout << std::endl;
     }
+    std::cout << std::endl;
 }
+#endif
 
-} //namespace Math
+void Matrix::Update() {
+    m_column = m_matrix[0].size();
+    m_row = m_matrix.size();
+    //¼ì²é¾ØÕóÊÇ·ñÊÇ·½Õó
+    is_square = m_row == m_column ? true : false;
+}
+} //namespace xl_math

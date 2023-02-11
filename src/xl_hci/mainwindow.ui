@@ -52,7 +52,7 @@
          <item>
           <widget class="QPushButton" name="tcp_pushButton">
            <property name="text">
-            <string>tcp</string>
+            <string>SocketTool</string>
            </property>
           </widget>
          </item>

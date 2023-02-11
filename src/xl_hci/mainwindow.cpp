@@ -3,6 +3,7 @@
 #include <QTimer>
 //日常练习
 #include "leetcode/leetcode.h"
+#include "tcp/socket_tool.h"
 #include "tcp/tcp.h"
 //工具
 #include "hex_convert.h"
@@ -18,6 +19,7 @@ namespace {
 //日常练习
 hci::LeetCode* leet_code = nullptr;
 hci::TCP* tcp = nullptr;
+hci::SocketTool* socket_tool = nullptr;
 //工具
 hci::HexConvert* hex_convert = nullptr;
 
@@ -29,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     leet_code = new hci::LeetCode();
+    socket_tool = new hci::SocketTool();
     tcp = new hci::TCP();
 
     hex_convert = new hci::HexConvert();
@@ -48,7 +51,7 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::RunLoop() {
-//    m_process_control->RunLoop();
+    m_process_control->RunLoop();
 }
 
 //日常练习
@@ -57,7 +60,10 @@ void MainWindow::on_leetcode_button_clicked(){
     leet_code->show();
 }
 void MainWindow::on_tcp_pushButton_clicked() {
-    tcp->show();
+//    tcp->show();
+
+    socket_tool->show();
+
 }
 
 //工具

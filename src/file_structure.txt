@@ -1,3 +1,11 @@
+| -- build
+| -- src
+     | -- CMakeLists.txt
+     | -- main.cpp
+     |||||||||||||||||||||
+
+
+
 src文件夹----source的简写，用于存放源代码。
 	src_1-进程部分
                 xl_hci----Human Computer Interaction的简写，人机交互部分，主要关于界面。

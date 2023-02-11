@@ -7,11 +7,11 @@
 *****************************************************/
 #ifndef MATH_MATHEMATIVAL_H
 #define MATH_MATHEMATIVAL_H
+
 #include <vector>
 #include <string>
 
 namespace xl_math {
-
 class Mathematical {
 public:
     Mathematical() = delete;
@@ -45,6 +45,5 @@ public:
      */
     static int InverseConvert(std::string input, int bit_state);
 };
-
 } //namespace xl_math
 #endif // MATH_MATHEMATIVAL_H

@@ -8,12 +8,16 @@
 #ifndef MATH_MATRIX_H
 #define MATH_MATRIX_H
 #include <vector>
+#include <string>
 namespace xl_math {
+//构建矩阵的方式
+//方式1：[3,3,0;2,5,-4;-1,1,0]
 
 class Matrix {
 public:
     Matrix(){};
     Matrix(unsigned int row, unsigned int column);
+    Matrix(const std::string& mat);
 //    Matrix (const Matrix& source);
     ~Matrix() {}
 
@@ -88,19 +92,23 @@ public:
      * @brief 重载^ 点乘
      */
     Matrix operator^ (const Matrix& mat);
+#ifdef DEBUG_TEST
     /**
      * @brief 矩阵打印工具
      */
-    void Print();
-
-
-    std::vector<std::vector<double>> m_matrix;//列表中的每个元素代表这一行
+    void Print(const std::string& name = "");
+#endif
 private:
+    void Update();
 
-    unsigned int m_row;   //矩阵的行数
-    unsigned int m_column;//矩阵的列数
+    unsigned int m_row;   //矩阵的列数,有多少行
+    unsigned int m_column;//矩阵的行数,有多少列
 
     bool is_square;       //矩阵是一个方阵,是方阵才能有逆矩阵
+
+    std::vector<std::vector<double>> m_matrix;//列表中的每个元素代表这一行
 };
+
+
 } //namespace xl_math
 #endif // MATH_MATRIX_H

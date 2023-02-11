@@ -23,6 +23,8 @@ set(CMAKE_C_STANDARD 99)            #C99
 set(CMAKE_CXX_STANDARD 17)          #C++17
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_definitions(-D DEBUG_TEST)
+
 ####################################################################
 #设置Qt的支持
 set(QT5_LIBRARIES Qt5::Widgets Qt5::Core Qt5::Gui Qt5::Xml)
@@ -47,11 +49,13 @@ file(GLOB_RECURSE FILES   ${PROJECT_SOURCE_DIR}/file_structure.txt)
 
 #添加要编译的可执行文件
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${FORMS} ${FILES})
-##add_subdirectory(src/hci)
-##add_subdirectory(src/srm)
-#link_libraries(ws2_32)
 
 #添加可执行文件所需要的库
 target_link_libraries(${PROJECT_NAME} ${QT5_LIBRARIES} Qt5::Core ws2_32 wsock32)
 
 #target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${QT5_LIBRARIES} ${CMAKE_DL_LIBS} ${LIBS} Qt5::Core )
+
+
+
+
+

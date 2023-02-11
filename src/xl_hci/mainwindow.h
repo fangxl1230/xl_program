@@ -21,11 +21,11 @@ public:
 private slots:
     void RunLoop();
 
-    //鏃ュ父缁冧範
+    //日常练习
     void on_leetcode_button_clicked();
     void on_tcp_pushButton_clicked();
 
-    //宸ュ叿
+    //工具
     void on_hex_convert_button_clicked();
 
 private:

@@ -6,17 +6,27 @@ namespace xl_tcp {
 class Client {
 public:
     Client(unsigned int p, std::string i);
-    ~Client() {}
+    ~Client();
+
+
+    bool Connect();
+    bool DisConnect();
+    bool Send(const std::string& info);
+    bool Recive(const std::string& info);
+//    bool Close();
+
 
     void TCPClientInit(int hosts, char* IPaddr);
 
-    //接收服务器回传的数据
+    //
     int TCPRescived();
     void TCPClose();
 
 private:
     unsigned int port;
     std::string ip;
+
+    bool is_connect;
 };
 
 } // namespace xl_tcp

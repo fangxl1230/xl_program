@@ -84,6 +84,21 @@ std::string ConvertTool::DecimalToAnybit(std::string input, int out_bit) {
     return output;
 }
 
+
+void Tool::PrintBaseDataType() {
+    std::cout << "char \t\t" << sizeof (char) << std::endl;
+    std::cout << "float \t\t" << sizeof (float) << std::endl;
+    std::cout << "long \t\t" << sizeof (long) << std::endl;
+    std::cout << "int \t\t" << sizeof (int) << std::endl;
+    std::cout << "unsigned int \t" << sizeof (unsigned int) << std::endl;
+    std::cout << "short int \t" << sizeof (short int) << std::endl;
+    std::cout << "long int \t\t" << sizeof (long int) << std::endl;
+    std::cout << "double \t\t" << sizeof (double) << std::endl;
+    std::cout << "long double\t" << sizeof (long double) << std::endl;
+    std::cout << "long long \t" << sizeof (long long) << std::endl;
+}
+
+
 void Tool::Printer(int space, std::string str) {
     std::cout << "\033[32m" << std::setw(space) << str <<  std::endl;
 }
